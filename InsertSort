@@ -1,0 +1,44 @@
+#include "stdafx.h"
+#include<string>
+#include<iostream>
+using namespace std;
+
+class Merge
+{
+public:
+	Merge(void) {}
+	//将A[r]插入顺序数组A[0...r-1] 非升序排列
+	void Insert(int *data, unsigned int r) {
+		int key = data[r];
+		for (int i = r-1; i >=0; i--)
+		{
+			if (data[i] > key) { data[i + 1] = data[i]; if (i == 0) { data[i] = key; } }
+			else { data[i + 1] = key; break; }
+			
+		}
+		return;
+	}
+	void InsertSort(int * data,  unsigned int r)
+	{
+		if (r > 1)
+		{
+			InsertSort(data, r - 1);
+		}
+		Insert(data, r);
+		return;
+	}
+};
+int main()
+{	
+	int data[20] = {68,15,95,33,44,65,100,569,22,35,68,15,95,33,44,65,100,569,22,35 };
+	Merge merge;
+	merge.InsertSort(data,19);
+	for(int i = 0;i<20;i++)
+	{
+		cout << data[i] << endl;
+	}
+	system("pause");
+
+    return 0;
+}
+
