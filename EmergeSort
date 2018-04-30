@@ -1,0 +1,91 @@
+
+#include "stdafx.h"
+#include<string>
+#include<iostream>
+using namespace std;
+
+class Merge
+{
+public:
+	Merge(void) {}
+	//合并排序后的数组data[p...q] data[q+1...r] 为data[q...r]
+	void MergeData(int *data, unsigned int p, unsigned int q, unsigned int r) {
+		int i = 0;
+		unsigned int n1 = 0;
+		unsigned int n2 = 0;
+		unsigned int l1 = 0, r1 = 0;
+		int L[10] = { 0 };
+		int R[10] = { 0 };
+		n1 = q - p + 1;
+		n2 = r - q;
+		cout << "p=" << p << "q=" << q <<"r="<<r<< endl;
+		//cout <<"n1="<< n1 << "n2="<< n2 << endl;
+		for (int i = 0; i < n1; i++)
+		{
+			L[i] = data[p + i];
+		}
+		for (int i = 0; i < n2; i++)
+		{
+			R[i] = data[q + i+1];
+		}
+		while ((i < n1 + n2) &(l1<n1)&(r1<n2))
+		{
+			//cout << L[l1] << endl; cout << R[r1] << endl;
+			if (L[l1] < R[r1]) {
+				data[p + i] = L[l1]; l1++;
+				
+			}
+			else { 
+				data[p + i] = R[r1]; 
+				r1++; 
+			}
+			//cout << data[p + i] << endl;
+			i++;
+		}
+		if (l1 == n1) 
+		{ 
+			for (; r1 < n2; r1++)
+			{
+				data[p + i] = R[r1];
+				i++;
+			}			
+		}
+		else if (r1 == n2)
+		{
+			for (; l1 < n1; l1++)
+			{
+				data[p + i] = L[l1];
+				i++;
+			}
+
+		}
+		return;
+		//if (l1 == (n1 + 1) { for()}
+	}
+	void MergeSort(int * data, unsigned int p, unsigned int r)
+	{
+		int q = (r + p) / 2;
+		if (p < r)
+		{
+			//cout << q << p << endl;
+			MergeSort(data, p, q);
+			MergeSort(data, q + 1, r);
+			MergeData(data, p, q, r);
+		}
+		return;
+	}
+};
+int main()
+{	
+	 int data[20] = {68,15,95,33,44,65,100,569,22,35,68,15,95,33,44,65,100,569,22,35 };
+	Merge merge;
+	merge.MergeSort(data,0,19);
+	for(int i = 0;i<20;i++)
+	{
+		cout << data[i] << endl;
+	}
+	system("pause");
+
+    return 0;
+}
+
